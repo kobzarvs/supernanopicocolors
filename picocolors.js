@@ -11,11 +11,11 @@ export let isColorSupported =
 function formatter(open, close, replace = open) {
   return isColorSupported
     ? (string) => {
-        let index = string.indexOf(close, open.length);
-        return !~index
-          ? open + string + close
-          : open + replaceClose(string, close, replace, index) + close;
-      }
+      let index = string.indexOf(close, open.length);
+      return !~index
+        ? open + string + close
+        : open + replaceClose(string, close, replace, index) + close;
+    }
     : (string) => string;
 }
 
@@ -26,28 +26,32 @@ function replaceClose(string, close, replace, index) {
   return !~nextIndex ? start + end : start + replaceClose(end, close, replace, nextIndex);
 }
 
-export let reset = (s) => `\x1b[0m${s}\x1b[0m`;
-export let bold = formatter("\x1b[1m", "\x1b[22m", "\x1b[22m\x1b[1m");
-export let dim = formatter("\x1b[2m", "\x1b[22m", "\x1b[22m\x1b[2m");
-export let italic = formatter("\x1b[3m", "\x1b[23m");
-export let underline = formatter("\x1b[4m", "\x1b[24m");
-export let inverse = formatter("\x1b[7m", "\x1b[27m");
-export let hidden = formatter("\x1b[8m", "\x1b[28m");
-export let strikethrough = formatter("\x1b[9m", "\x1b[29m");
-export let black = formatter("\x1b[30m", "\x1b[39m");
-export let red = formatter("\x1b[31m", "\x1b[39m");
-export let green = formatter("\x1b[32m", "\x1b[39m");
-export let yellow = formatter("\x1b[33m", "\x1b[39m");
-export let blue = formatter("\x1b[34m", "\x1b[39m");
-export let magenta = formatter("\x1b[35m", "\x1b[39m");
-export let cyan = formatter("\x1b[36m", "\x1b[39m");
-export let white = formatter("\x1b[37m", "\x1b[39m");
-export let gray = formatter("\x1b[90m", "\x1b[39m");
-export let bgBlack = formatter("\x1b[40m", "\x1b[49m");
-export let bgRed = formatter("\x1b[41m", "\x1b[49m");
-export let bgGreen = formatter("\x1b[42m", "\x1b[49m");
-export let bgYellow = formatter("\x1b[43m", "\x1b[49m");
-export let bgBlue = formatter("\x1b[44m", "\x1b[49m");
-export let bgMagenta = formatter("\x1b[45m", "\x1b[49m");
-export let bgCyan = formatter("\x1b[46m", "\x1b[49m");
-export let bgWhite = formatter("\x1b[47m", "\x1b[49m");
+let B1 = "\x1b[";
+let M49 = "\x1b[49m";
+let M39 = "\x1b[39m";
+
+export let reset = s => `${B1}0m${s}${B1}0m`;
+export let bold = formatter(B1 + "1m", B1 + "22m", B1 + `22m${B1}1m`);
+export let dim = formatter(B1 + "2m", B1 + "22m", B1 + `22m${B1}2m`);
+export let italic = formatter(B1 + "3m", B1 + "23m");
+export let underline = formatter(B1 + "4m", B1 + "24m");
+export let inverse = formatter(B1 + "7m", B1 + "27m");
+export let hidden = formatter(B1 + "8m", B1 + "28m");
+export let strikethrough = formatter(B1 + "9m", B1 + "29m");
+export let black = formatter(B1 + "30m", M39);
+export let red = formatter(B1 + "31m", M39);
+export let green = formatter(B1 + "32m", M39);
+export let yellow = formatter(B1 + "33m", M39);
+export let blue = formatter(B1 + "34m", M39);
+export let magenta = formatter(B1 + "35m", M39);
+export let cyan = formatter(B1 + "36m", M39);
+export let white = formatter(B1 + "37m", M39);
+export let gray = formatter(B1 + "90m", M39);
+export let bgBlack = formatter(B1 + "40m", M49);
+export let bgRed = formatter(B1 + "41m", M49);
+export let bgGreen = formatter(B1 + "42m", M49);
+export let bgYellow = formatter(B1 + "43m", M49);
+export let bgBlue = formatter(B1 + "44m", M49);
+export let bgMagenta = formatter(B1 + "45m", M49);
+export let bgCyan = formatter(B1 + "46m", M49);
+export let bgWhite = formatter(B1 + "47m", M49);
