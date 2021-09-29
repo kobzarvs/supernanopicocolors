@@ -1,4 +1,4 @@
-# picocolors
+# supernanopicocolors
 
     npm install picocolors
 
